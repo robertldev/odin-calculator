@@ -1,0 +1,29 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+#calc-container {
+    display: flex;
+    border: 1px solid black;
+    width: 600px;
+    height: 600px;
+    flex-direction: column;
+}
+
+#display-row {
+    height: 120px;
+    width: 600px
+}
+
+.number-row {
+    width: 100%;
+    height: 120px;
+    display: flex;
+}
+
+/* Change next time so it expands rather than fixed heights. I've overcomplicated this */
