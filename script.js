@@ -1,7 +1,8 @@
-/* Add event listeners, and on-click effects */
+let calcDisplay = document.querySelector('#display-content');
+
+/* Add event listeners for on-click effects */
 
 let buttonNodeList = document.querySelectorAll('.button');
-
 buttonNodeList.forEach((button) => {
     button.addEventListener('mousedown', () => {
         button.style.boxShadow = 'inset 0px 3px #505050';
@@ -38,5 +39,24 @@ function operate(num1, num2, operator) {
         case 'divide':
             return divideNumbers(num1, num2);
             break;
+    }
+}
+
+/* Add event listeners for number clicks */
+
+let numberNodeList = document.querySelectorAll('.number');
+numberNodeList.forEach((number) => {
+    number.addEventListener('click', () => {
+        updateDisplay(number.textContent);
+    })
+})
+
+function updateDisplay(number) {
+    if (calcDisplay.textContent < 10000000 && calcDisplay.textContent != 0) {
+        calcDisplay.textContent = calcDisplay.textContent.concat(number);
+        /* This is to push new numbers on rather than add */
+        /* Also limiting the number of chars due to space, and also avoiding the possibility of a trail of 0's */
+    } else if (calcDisplay.textContent == 0) {
+        calcDisplay.textContent = number;
     }
 }
