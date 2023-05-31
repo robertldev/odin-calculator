@@ -42,7 +42,7 @@ function operate(num1, num2, operator) {
     }
 }
 
-/* Add event listeners for number clicks */
+/* Add event listeners for number clicks and to update display on those */
 
 let numberNodeList = document.querySelectorAll('.number');
 numberNodeList.forEach((number) => {
