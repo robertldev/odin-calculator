@@ -138,10 +138,19 @@ function equalsCalc () {
             calcDisplay.textContent = calcAnswer;
         }
         currentCalc = [];
+    } else {
+        let calcAnswer = operate(currentCalc[0], currentCalc[2], currentCalc[1]);
+        currentCalc.splice(0, 3);
+        do {
+            calcAnswer = operate(calcAnswer, currentCalc[1], currentCalc[0]);
+            currentCalc.splice(0, 2);
+        }
+        while (currentCalc.length > 0);
+        if (calcAnswer.toString().length < 9) {
+            calcDisplay.textContent = calcAnswer;
+        }
     }
 }
 
-/* Calculate and return a value */
+/* Still need to add functionality to reduce answers down to 8 digits rather than rejecting them */
 /* Check the output is max 9 numbers */
-/* Clear array at end */
-/* Decide how to start a new calculation */
