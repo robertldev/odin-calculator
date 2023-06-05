@@ -65,28 +65,28 @@ function clearDisplay () {
 document.querySelector('#button-add').addEventListener('click', () => {
     let currentNum = parseFloat(calcDisplay.textContent);
     if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, '+');
+        currentCalc.push(currentNum, 'add');
         clearDisplay();
     }
 })
 document.querySelector('#button-subtract').addEventListener('click', () => {
     let currentNum = parseFloat(calcDisplay.textContent);
     if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, '-');
+        currentCalc.push(currentNum, 'subtract');
         clearDisplay();
     } 
 })
 document.querySelector('#button-multiply').addEventListener('click', () => {
     let currentNum = parseFloat(calcDisplay.textContent);
     if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, '*');
+        currentCalc.push(currentNum, 'multiply');
         clearDisplay();
     }
 })
 document.querySelector('#button-divide').addEventListener('click', () => {
     let currentNum = parseFloat(calcDisplay.textContent);
     if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, '/');
+        currentCalc.push(currentNum, 'divide');
         clearDisplay();
     }
 })
@@ -132,7 +132,13 @@ function equalsCalc () {
     if (isNaN(currentCalc[currentCalc.length - 1])) {
         currentCalc.pop();
     }
-    
+    if (currentCalc.length == 3) {
+        let calcAnswer = operate(currentCalc[0], currentCalc[2], currentCalc[1]);
+        if (calcAnswer.toString().length < 9) {
+            calcDisplay.textContent = calcAnswer;
+        }
+        currentCalc = [];
+    }
 }
 
 /* Calculate and return a value */
