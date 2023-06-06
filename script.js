@@ -33,6 +33,13 @@ document.querySelector('#button-clear').addEventListener('click', () => {
     currentCalc = [];
 })
 
+/* Add functionality to the Backspace button */
+document.querySelector('#button-backspace').addEventListener('click', () => {
+    if (calcDisplay.textContent != '') {
+        calcDisplay.textContent = calcDisplay.textContent.slice(0,-1);
+    }
+})
+
 /* Add functionality to the positive/negative selector */
 document.querySelector('#button-posnev').addEventListener('click', () => {
     if (!calcDisplay.textContent.includes('-')) {
@@ -62,33 +69,15 @@ function clearDisplay () {
 }
 
 /* Add event listener and push to calc array when operation is requested */
-document.querySelector('#button-add').addEventListener('click', () => {
-    let currentNum = parseFloat(calcDisplay.textContent);
-    if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, 'add');
-        clearDisplay();
-    }
-})
-document.querySelector('#button-subtract').addEventListener('click', () => {
-    let currentNum = parseFloat(calcDisplay.textContent);
-    if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, 'subtract');
-        clearDisplay();
-    } 
-})
-document.querySelector('#button-multiply').addEventListener('click', () => {
-    let currentNum = parseFloat(calcDisplay.textContent);
-    if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, 'multiply');
-        clearDisplay();
-    }
-})
-document.querySelector('#button-divide').addEventListener('click', () => {
-    let currentNum = parseFloat(calcDisplay.textContent);
-    if (!isNaN(currentNum)) {
-        currentCalc.push(currentNum, 'divide');
-        clearDisplay();
-    }
+let operators = ['add', 'subtract', 'multiply', 'divide'];
+operators.forEach((operator) => {
+    document.querySelector(`#button-${operator}`).addEventListener('click', () => {
+        let currentNum = parseFloat(calcDisplay.textContent);
+        if (!isNaN(currentNum)) {
+            currentCalc.push(currentNum, `${operator}`);
+            clearDisplay();
+        }
+    })
 })
 
 
@@ -119,7 +108,7 @@ function operate(num1, num2, operator) {
 /* Add event listener for equals and invoke calculation */
 document.querySelector('#button-equals').addEventListener('click', () => {
     let currentNum = parseFloat(calcDisplay.textContent);
-    if (currentNum !== "") {
+    if (currentNum !== '' && !isNaN(currentNum)) {
         currentCalc.push(currentNum);
     }
     if (currentCalc.length > 2) {
@@ -134,12 +123,14 @@ function equalsCalc () {
     }
     if (currentCalc.length == 3) {
         let calcAnswer = operate(currentCalc[0], currentCalc[2], currentCalc[1]);
+        calcAnswer = calcAnswer.toFixed(2);
         if (calcAnswer.toString().length < 9) {
             calcDisplay.textContent = calcAnswer;
         }
         currentCalc = [];
     } else {
         let calcAnswer = operate(currentCalc[0], currentCalc[2], currentCalc[1]);
+        calcAnswer = calcAnswer.toFixed(2);
         currentCalc.splice(0, 3);
         do {
             calcAnswer = operate(calcAnswer, currentCalc[1], currentCalc[0]);
@@ -151,6 +142,3 @@ function equalsCalc () {
         }
     }
 }
-
-/* Still need to add functionality to reduce answers down to 8 digits rather than rejecting them */
-/* Check the output is max 9 numbers */
