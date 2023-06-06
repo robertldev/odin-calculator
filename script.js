@@ -20,6 +20,32 @@ numberNodeList.forEach((number) => {
     })
 })
 
+/* Add keyboard event listener for non-function keys */
+document.addEventListener("keydown", (event) => {
+    if (event.key < 10) {
+        let button = document.querySelector(`#num${event.key}`);
+        button.style.boxShadow = 'inset 0px 3px #505050';
+    }
+    if (event.key == '.') {
+        let button = document.querySelector('#button-decimal');
+        button.style.boxShadow = 'inset 0px 3px #505050';
+    }
+    if (event.key < 10 || event.key == '.') {
+        updateDisplay(event.key);
+    }
+});
+document.addEventListener("keyup", (event) => {
+    if (event.key < 10) {
+        let button = document.querySelector(`#num${event.key}`);
+        button.style.boxShadow = '0px 3px #505050';
+    }
+    if (event.key == '.') {
+        let button = document.querySelector('#button-decimal');
+        button.style.boxShadow = '0px 3px #505050';
+    }
+});
+
+
 /* Add event listener for decimal point and update display on those */
 document.querySelector('#button-decimal').addEventListener('click', () => {
     if (!calcDisplay.textContent.includes('.')) {
@@ -142,3 +168,6 @@ function equalsCalc () {
         }
     }
 }
+
+/* Stopping now, keyboard listeners added for numbers and decimal */
+/* On revisit, could add listeners to other buttons also */
